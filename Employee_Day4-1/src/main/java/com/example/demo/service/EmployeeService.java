@@ -1,0 +1,29 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Employee;
+
+@Service
+public class EmployeeService {
+	
+	public static List<Employee> list=new ArrayList<>();
+	static {
+		list.add(new Employee(101,"Amit",123456,"Indore"));
+		list.add(new Employee(102,"Shariq",123456,"Dewas"));
+		list.add(new Employee(103,"Deepak",123456,"Bhopal"));	
+	}
+	public List<Employee> getEmployee()
+	{
+		return list;
+	}
+	public Employee addEmployee(Employee emp)
+	{
+		list.add(emp);
+		return emp;
+	}
+	
+}

@@ -1,0 +1,17 @@
+package com.example.demo.service;
+
+import java.awt.print.Book;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class BookService {
+public static List<Book> list=new ArrayList<>();
+
+static {
+	list.add(new Book(1,"Anne Frank","The Diary of young Girl"));
+	
+}
+}

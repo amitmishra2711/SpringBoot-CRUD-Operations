@@ -1,0 +1,19 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Book;
+
+@Service
+public class BookService {
+public static List<com.example.demo.entity.Book> list=new ArrayList<>();
+
+static {
+	list.add(new Book(1,"Anne Frank","The Diary of young Girl"));
+	list.add(new Book(2,"Frank","The Diary"));
+	list.add(new Book(3,"Anne","Young Girl"));
+}
+}

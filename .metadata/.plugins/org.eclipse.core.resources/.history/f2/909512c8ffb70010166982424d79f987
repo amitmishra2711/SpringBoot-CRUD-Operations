@@ -1,0 +1,134 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Student;
+
+@Service
+public class StudentService {
+
+	public static List<Student> s=new ArrayList<>();
+	static {
+		s.add(new Student(1, "Amit", "Computer",99.99));
+		s.add(new Student(2, "Arpit", "IT",89.99));
+		s.add(new Student(3, "Ishan", "EC",90.99));
+		s.add(new Student(4, "Abhijeet", "Computer",90));	
+	}
+	
+	public List<Student> getAll()
+	{
+		return s;
+	}
+	public Student getById(int id)
+	{
+		Student s1=null;
+		Iterator<Student> li=s.iterator();
+		while(li.hasNext())
+		{
+			s1= li.next();
+			if(s1.getId()==id)
+			{
+				return s1;
+			}
+		}
+		return null;
+	}
+	
+	public String addStudent(Student st)
+	{
+		s.add(st);
+		return "Added Successfully";
+	}
+	
+	public String deleteStudent(int id)
+	{
+		Student s1=null;
+		Iterator<Student> li=s.iterator();
+		while(li.hasNext())
+		{
+			s1= li.next();
+			if(s1.getId()==id)
+			{
+				li.remove();
+				return "Delete Successfully";
+			}
+		}
+		return "Deletion Un-Successfully";
+	}
+	
+	public List<Student> getByDepartment(String  dept)
+	{
+		
+		Student s1=null;
+		List<Student> s2=new ArrayList<>();
+
+		Iterator<Student> li=s.iterator();
+		while(li.hasNext())
+		{
+			s1= li.next();
+			if(s1.getDept().equals(dept))
+			{
+				s2.add(s1);
+			}
+		}
+		return s2;
+	}
+	public Student getTopper()
+	{
+		double top=0;
+		Student s1=null;
+		Iterator<Student> li=s.iterator();
+		while(li.hasNext())
+		{
+			s1= li.next();
+			if(s1.getMarks()>top)
+			{
+				top=s1.getMarks();
+			}
+			
+		}
+		while(li.hasNext())
+		{
+			s1=li.next();
+			if(s1.getMarks()==top)
+			{
+				return s1;
+			}
+		}
+		return s1;
+		
+	}
+
+	public String getAverage()
+	{
+		int totalMarks=0;
+		int count=0;
+		Student s1=null;
+		Iterator<Student> li=s.iterator();
+		while(li.hasNext())
+		{
+			s1=li.next();
+			totalMarks +=s1.getMarks();
+			count++;
+		}
+		return "Average Marks is :"+totalMarks/count;
+	}
+	public String getCount()
+	{
+		
+		int count=0;
+		Student s1=null;
+		Iterator<Student> li=s.iterator();
+		while(li.hasNext())
+		{
+			s1=li.next();
+			count++;
+		}
+		return "Total Students is :"+count;
+	}	
+}
+

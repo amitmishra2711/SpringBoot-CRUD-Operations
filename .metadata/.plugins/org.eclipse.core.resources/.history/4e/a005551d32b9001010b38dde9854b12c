@@ -1,0 +1,173 @@
+package com.example.demo.hospitalService;
+
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+import com.example.demo.entity.Hospital;
+import com.example.demo.entity.Patient;
+
+@org.springframework.stereotype.Service
+public class HospitalService {
+
+	public static List<Hospital> list = new ArrayList<>();
+
+	static {
+		list.add(new Hospital(1, "Shivgami", 18, "girl", "swinfull", 5500));
+		list.add(new Hospital(2, "Katappa", 45, "male", "corona", 1500));
+		list.add(new Hospital(3, "Deepeka", 21, "girl", "Black", 3500));
+		list.add(new Hospital(4, "Mehu", 35, "girl", "corona", 4500));
+	}
+
+	// Get All
+	public List<Hospital> getAll() {
+		return list;
+	}
+
+	// Get by Id
+	public Hospital getById(int id) {
+		ListIterator<Hospital> its = list.listIterator();
+
+		while (its.hasNext()) {
+			Hospital patient = (Hospital) its.next();
+			if (patient.getId() == id) {
+				return patient;
+			}
+		}
+		return null;
+	}
+
+	// Add
+	public String addPatient(Hospital p) {
+		if (p != null) {
+			list.add(p);
+			return "Patient Added";
+		}
+		return "Not found";
+	}
+
+//	Update
+	public String updatePatient(Hospital p, int id) {
+		ListIterator<Hospital> itr = list.listIterator();
+
+		while (itr.hasNext()) {
+			Hospital patient = (Hospital) itr.next();
+
+			if (patient.getId() == id) {
+
+				patient.setName(p.getName());
+				patient.setAge(p.getAge());
+				patient.setGender(p.getGender());
+				patient.setDisease(p.getDisease());
+				patient.setBillAmount(p.getBillAmount());
+
+				return "Patient Update";
+
+			}
+		}
+
+		return "Patient not found";
+	}
+
+//	Delete by id
+	public Boolean deleteById(int id) {
+		Iterator<Hospital> itr = list.iterator();
+
+		while (itr.hasNext()) {
+			Hospital patient = (Hospital) itr.next();
+
+			if (patient.getId() == id) {
+				itr.remove();
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+//	Delete by disease
+	public String deleteByDisease(String disease) {
+		Iterator<Hospital> itr = list.iterator();
+
+		while (itr.hasNext()) {
+			Hospital patient = (Hospital) itr.next();
+
+			if (patient.getDisease().equals(disease)) {
+				itr.remove();
+				return "Patient Deleted";
+			}
+		}
+
+		return "Patient not found";
+	}
+
+//	Get All Patient with there disease
+	public List<Hospital> getByDisease(String disease) {
+		Iterator<Hospital> itr = list.iterator();
+		List<Hospital> p = new ArrayList<>();
+
+		while (itr.hasNext()) {
+			Hospital patient = (Hospital) itr.next();
+
+			if (patient.getDisease().equals(disease)) {
+				p.add(patient);
+			}
+		}
+		return p;
+	}
+
+//	count of patient
+	public int patientCount() {
+		return list.size();
+	}
+
+//	older that the integer
+	public List<Hospital> getByAge(int age) {
+		Iterator<Hospital> itr = list.iterator();
+		List<Hospital> p = new ArrayList<>();
+
+		while (itr.hasNext()) {
+			Hospital patient = (Hospital) itr.next();
+
+			if (patient.getAge() > age) {
+				p.add(patient);
+			}
+		}
+		return p;
+	}
+
+//	Average bill of all patients
+	public double getAverage() {
+		int sum = 0;
+
+		for (Hospital patient : list) {
+			sum += patient.getBillAmount();
+		}
+		return (double) sum / list.size();
+	}
+
+//	A person who pay higest
+	public Hospital getByHigestPay() {
+		double max = 12;
+
+		for (Hospital p : list) {
+			if (p.getBillAmount() > max) {
+				max = p.getBillAmount();
+			}
+		}
+
+		ListIterator<Hospital> itr = list.listIterator();
+		Hospital p = null;
+		while (itr.hasNext()) {
+			p = itr.next();
+
+			if (p.getBillAmount() == max) {
+				return p;
+			}
+		}
+
+		return null;
+	}
+}

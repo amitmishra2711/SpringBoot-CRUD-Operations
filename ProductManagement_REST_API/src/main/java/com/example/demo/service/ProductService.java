@@ -1,0 +1,125 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Product;
+
+@Service
+public class ProductService {
+
+	public static List<Product> p=new ArrayList<>();
+	static {
+		p.add(new Product(101,"Dove","Soup",25.50));
+		p.add(new Product(102,"LifeBoy","Soup",30.50));
+		p.add(new Product(103,"Medmix","Soup",20.50));
+		p.add(new Product(104,"LUX","Soup",40.50));
+	}
+	
+	
+	public List<Product> getProduct()
+	{
+		return p;
+	}
+	public Product getByID(int id)
+	{
+		Product p1=null;
+		Iterator<Product> list=p.iterator();
+		while(list.hasNext())
+		{
+			p1=(Product) list.next();
+			if(p1.getId()==id)
+			{
+				return p1;
+			}	
+		}
+		return null;
+	}
+	
+	public String addProduct(Product p1)
+	{
+		p.add(p1);
+		return "Product Added Successfully";
+	}
+	
+	
+	public String deleteByID(int id)
+	{
+		Product p1=null;
+		Iterator<Product> list=p.iterator();
+		while(list.hasNext())
+		{
+			p1=(Product) list.next();
+			if(p1.getId()==id)
+			{
+				list.remove();
+				return "Delete Successfully";
+			}	
+		}
+		return "NO Deletion";
+	}
+
+	public List<Product> getByCategory(String cat)
+	{
+		Product p1=null;
+		List<Product> li=new ArrayList<>();
+		Iterator<Product> list=p.iterator();
+		while(list.hasNext())
+		{
+			p1=(Product) list.next();
+			if(p1.getCategory().equals(cat))
+			{
+				li.add(p1);
+			}	
+		}
+		return li;
+	}
+	
+	public Product updateProduct(Product p2)
+	{
+		Product p1=null;
+		Iterator<Product> li=p.iterator();
+		while(li.hasNext())
+		{
+			p1=li.next();
+			if(p1.getId()==p2.getId())
+			{
+				p1.setCategory(p2.getCategory());
+				p1.setPrice(p2.getPrice());
+				return p1;
+			}
+		}
+		return p1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

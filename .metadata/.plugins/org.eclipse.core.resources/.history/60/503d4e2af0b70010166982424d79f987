@@ -1,0 +1,66 @@
+package com.example.demo.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import com.example.demo.Entity.Book;
+
+@Service
+public class BookService {
+	public static List<Book> list = new ArrayList<>();
+
+	static {
+		list.add(new Book(1, "48 rulles of life", "Jone"));
+		list.add(new Book(2, "50 rulles of brand", "Dev"));
+		list.add(new Book(3, "55 rulles of life", "Kavin"));
+		list.add(new Book(4, "84 rulles of life", "Rock"));
+	}
+
+	public List<Book> getBooks() {
+		return list;
+	}
+
+	public String addBook(Book book) {
+		list.add(book);
+		return "Book added successfully";
+	}
+
+	public Book getBook(int id) {
+		Book book = null;
+		Iterator<Book> itr = list.iterator();
+		while (itr.hasNext()) {
+			book = (Book) itr.next();
+			if (book.getId() == id) {
+				return book;
+			}
+		}
+		return null; 
+	}
+	
+	public String deleteBook(int id) {
+		Book book = null;
+		Iterator<Book> itr = list.iterator();
+		while (itr.hasNext()) {
+			book = (Book) itr.next();
+			if (book.getId() == id) {
+				itr.remove();
+				return "Book deleted Successfully";
+			}
+		}
+		return "Book Not Found";
+	}
+	
+	public Book getBookByName(String name) {
+		Book book = null;
+		Iterator<Book> itr = list.iterator();
+		while (itr.hasNext()) {
+			book = (Book) itr.next();
+			if (book.getTitle().equalsIgnoreCase(name)) {
+				return book;
+			}
+		}
+		return null; 
+	}
+	
+}

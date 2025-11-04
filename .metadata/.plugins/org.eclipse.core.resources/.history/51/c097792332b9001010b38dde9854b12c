@@ -1,0 +1,83 @@
+package com.example.demo.controller;
+
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entity.Hospital;
+import com.example.demo.hospitalService.HospitalService;
+
+@RestController
+@RequestMapping("Hospital")
+public class HospitalController {
+
+	@Autowired
+	private HospitalService service;
+
+	@GetMapping("/getAll")
+	public List<Hospital> getAll() {
+		List<Hospital> list = service.getAll();
+		return list;
+	}
+
+	@GetMapping("/getById/{id}")
+	public Hospital getById(@PathVariable int id) {
+		return service.getById(id);
+	}
+
+	@PostMapping("/addPatient")
+	public String addPatient(@RequestBody Hospital p) {
+		return service.addPatient(p);
+	}
+
+	@PutMapping("/update/{id}")
+	public String update(@RequestBody Hospital p, @PathVariable int id) {
+		return service.updatePatient(p, id);
+	}
+
+	@DeleteMapping("deleteById/{id}")
+	public Boolean deleteById(@PathVariable int id) {
+		return service.deleteById(id);
+	}
+
+	@DeleteMapping("deleteByDisease/{disease}")
+	public String deleteByDisease(@PathVariable String disease) {
+		return service.deleteByDisease(disease);
+	}
+
+	@GetMapping("getByDisease/{disease}")
+	public List<Hospital> getByDisease(@PathVariable String disease) {
+		List<Hospital> plist = service.getByDisease(disease);
+		return plist;
+	}
+
+	@GetMapping("patientCount")
+	public int patientCount() {
+		return service.patientCount();
+	}
+
+	@GetMapping("getByAge/{age}")
+	public List<> getByAge(@PathVariable int age) {
+		return service.getByAge(age);
+	}
+	
+	@GetMapping("getAverage")
+	public double getAverage() {
+		return service.getAverage();
+	}
+	
+	@GetMapping("getHigestPay")
+	public Hospital getByHigestPay() {
+		return service.getByHigestPay();
+	}
+}

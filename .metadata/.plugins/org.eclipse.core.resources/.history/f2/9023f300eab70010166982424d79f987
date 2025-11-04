@@ -1,0 +1,70 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Product;
+
+@Service
+public class ProductService {
+
+	public static List<Product> p=new ArrayList<>();
+	static {
+		p.add(new Product(101,"Dove","Soup",25.50));
+		p.add(new Product(102,"LifeBoy","Soup",30.50));
+		p.add(new Product(103,"Medmix","Soup",20.50));
+		p.add(new Product(104,"LUX","Soup",40.50));
+	}
+	
+	
+	public List<Product> getProduct()
+	{
+		return p;
+	}
+	public Product getByID(int id)
+	{
+		Product p1=null;
+		Iterator<Product> list=p.iterator();
+		while(list.hasNext())
+		{
+			p1=(Product) list.next();
+			if(p1.getId()==id)
+			{
+				return p1;
+			}
+		}
+	
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
